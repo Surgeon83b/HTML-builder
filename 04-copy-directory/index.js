@@ -18,7 +18,7 @@ const toDir = 'files-copy';
 }*/
 
 // deleting files in 'files-copy' directory if it exists
-const clearDir = (dir) => {
+const clearDirAndCopy = (dir) => {
 
   fs.stat(path.join(__dirname, dir),
     err => {
@@ -38,9 +38,10 @@ const clearDir = (dir) => {
             })
             copyDir('files', 'files-copy');
           })
-
+      else {
+        copyDir('files', 'files-copy');
+      }
     })
-  copyDir('files', 'files-copy');
 }
 
 const copyDir = (fromDir, toDir) => {
@@ -74,4 +75,4 @@ const copyDir = (fromDir, toDir) => {
 }
 */
 
-clearDir('files-copy');
+clearDirAndCopy('files-copy');
