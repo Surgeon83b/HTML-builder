@@ -1,34 +1,49 @@
 const fs = require('fs');
 const path = require('path');
+const toDir = 'files-copy';
 
-const copyDir = (fromDir, toDir) => {
-  // deleting 'files-copy' directory if it exists
-  fs.stat(path.join(__dirname, toDir),
+/*const isExists = (dir) => {
+  let isEx = false;
+  fs.stat(path.join(__dirname, dir),
     err => {
-      if (!err) {
-        fs.readdir(path.join(__dirname, toDir),
+      console.log('err', err);
+      if (!err) isEx = true;
+      else console.log(err);
+
+      isEx ? console.log('exists') : console.log('doesn\'t exist')
+      return isEx;
+    }
+  )
+  return isEx;
+}*/
+
+// deleting files in 'files-copy' directory if it exists
+const clearDir = (dir) => {
+
+  fs.stat(path.join(__dirname, dir),
+    err => {
+      if (!err)
+        fs.readdir(path.join(__dirname, dir),
           (err, files) => {
             if (err) {
-              throw err;
               console.log(err);
             }
             files.forEach(file => {
-              fs.unlink(path.join(__dirname, toDir, file),
+              fs.unlink(path.join(__dirname, dir, file),
                 err => {
                   if (err)
                     console.log('error while deleting');
                 })
               console.log('delete completed');
             })
+            copyDir('files', 'files-copy');
           })
-     /*   fs.rmdir(path.join(__dirname, toDir),
-          err => {
-            if (err)
-              console.log('error while removing dir');
-          })*/
-      }
-    })
 
+    })
+  copyDir('files', 'files-copy');
+}
+
+const copyDir = (fromDir, toDir) => {
   /// copying files to dir
   fs.readdir(path.join(__dirname, fromDir),
     (err, files) => {
@@ -45,9 +60,18 @@ const copyDir = (fromDir, toDir) => {
             if (err)
               console.log('error');
           })
-          console.log('copy completed'); 
+        console.log('copy completed');
       })
     });
 }
 
-copyDir('files', 'files-copy');
+/*const removeDir = (dir) => {
+  fs.rmdir((__dirname, dir),
+    err => {
+      if (err)
+        console.log('error while deleting');
+    })
+}
+*/
+
+clearDir('files-copy');
