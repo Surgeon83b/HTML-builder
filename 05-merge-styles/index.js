@@ -8,7 +8,7 @@ const fileNames = fs.readdir(path.join(__dirname, 'styles'), { withFileTypes: tr
   (err, files) => {
 
     files.forEach(file => {
-      if (file.isFile() && path.extname(file.name) == '.css') {
+      if (file.isFile() && path.extname(file.name) == '.css') { 
         // console.log(file.name);
 
         const stream = new fs.ReadStream(path.join(__dirname, 'styles', file.name), { encoding: 'utf-8' });
