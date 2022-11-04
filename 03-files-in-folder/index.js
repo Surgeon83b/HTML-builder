@@ -1,9 +1,8 @@
-fs = require('fs');
+const fs = require('fs');
 const path = require('path');
 
 const fileNames = fs.readdir(path.join(__dirname, 'secret-folder'), { withFileTypes: true },
   (err, files) => {
-   // console.log(files);
     files.forEach(file => {
       if (file.isFile()) {
        // console.log(file.name);
