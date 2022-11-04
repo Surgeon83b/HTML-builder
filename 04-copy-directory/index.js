@@ -2,26 +2,33 @@ const fs = require('fs');
 const path = require('path');
 
 const copyDir = (fromDir, toDir) => {
-  // deleting 'files-copy' directory
-  fs.readdir(path.join(__dirname, toDir),
-    (err, files) => {
-      if (err) {
-        throw err;
-        console.log(err);
-      }
-      files.forEach(file => {
-        fs.unlink(path.join(__dirname, toDir, file),
+  // deleting 'files-copy' directory if it exists
+  fs.stat(path.join(__dirname, toDir),
+    err => {
+      if (!err) {
+        fs.readdir(path.join(__dirname, toDir),
+          (err, files) => {
+            if (err) {
+              throw err;
+              console.log(err);
+            }
+            files.forEach(file => {
+              fs.unlink(path.join(__dirname, toDir, file),
+                err => {
+                  if (err)
+                    console.log('error while deleting');
+                })
+              console.log('delete completed');
+            })
+          })
+     /*   fs.rmdir(path.join(__dirname, toDir),
           err => {
             if (err)
-              console.log('error while deleting');
-          })
-      })
+              console.log('error while removing dir');
+          })*/
+      }
     })
-  fs.rmdir(path.join(__dirname, toDir),
-    err => {
-      if (err)
-        console.log('error while removing dir');
-    })
+
   /// copying files to dir
   fs.readdir(path.join(__dirname, fromDir),
     (err, files) => {
@@ -38,6 +45,7 @@ const copyDir = (fromDir, toDir) => {
             if (err)
               console.log('error');
           })
+          console.log('copy completed'); 
       })
     });
 }
