@@ -2,21 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const toDir = 'files-copy';
 
-/*const isExists = (dir) => {
-  let isEx = false;
-  fs.stat(path.join(__dirname, dir),
-    err => {
-      console.log('err', err);
-      if (!err) isEx = true;
-      else console.log(err);
-
-      isEx ? console.log('exists') : console.log('doesn\'t exist')
-      return isEx;
-    }
-  )
-  return isEx;
-}*/
-
 // deleting files in 'files-copy' directory if it exists
 const clearDirAndCopy = (dir) => {
 
@@ -66,13 +51,5 @@ const copyDir = (fromDir, toDir) => {
     });
 }
 
-/*const removeDir = (dir) => {
-  fs.rmdir((__dirname, dir),
-    err => {
-      if (err)
-        console.log('error while deleting');
-    })
-}
-*/
 
 clearDirAndCopy('files-copy');

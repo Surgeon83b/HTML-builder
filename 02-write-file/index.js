@@ -9,7 +9,7 @@ rl.on('line', (input) => {
   if (input == 'exit')
     rl.close()
   else
-    output.write(input);
+    output.write(input+'\n');
 });
 
 rl.on('close', () => console.log('good bye'));
